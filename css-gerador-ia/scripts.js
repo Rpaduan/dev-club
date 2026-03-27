@@ -1,11 +1,30 @@
 let botao = document.querySelector(".botao-gerar")
+let endereco = "/api/chat"
 
-function gerarCodigo(){
+async function gerarCodigo(){
     let textoUsuario = document.querySelector(".caixa-texto").value
-    console.log(textoUsuario)
+    
+    let resposta = await fetch(endereco, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            messages: [
+            {
+                role: "system",
+                content: "Você é um gerador de código HTML e CSS, responda APENAS com código puro. Nunca use crases, markdown ou explicações. Formato: primeiro <style> com o CSS, depois o HTML. Siga EXATAMENTE o que o usuário pedir. Se pedir algo quicando, use translateY no @keyframes. Se pedir algo girando, use rotate."
+            },
+            {
+                role: "user",
+                content: textoUsuario
+            }]
+        })
+    });
+
+    console.log(resposta)
+
 }
-
-
 
 botao.addEventListener("click", gerarCodigo)
 
