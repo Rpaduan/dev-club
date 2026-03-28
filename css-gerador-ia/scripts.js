@@ -24,32 +24,37 @@ async function gerarCodigo(){
         })
     })
 
-   // 1. Verifique se o fetch realmente deu certo
-if (!resposta.ok) {
-    console.error("Erro na requisição:", await resposta.text());
-    return;
-}
+ try {
+    let dados = await resposta.json();
+    console.log("1. JSON recebido:", dados);
 
-let dados = await resposta.json();
-console.log("Dados recebidos:", dados); // Veja se aparece no console do navegador
-
-// 2. Acesse o conteúdo com o índice [0]
-if (dados.choices && dados.choices.length > 0) {
+    // ACESSO CORRETO AO CONTEÚDO (Verifique os índices [0])
     let resultado = dados.choices[0].message.content;
+    console.log("2. Texto da IA:", resultado);
 
-    // Limpa possíveis marcações de markdown (```html)
+    // Limpando o código (remove as crases ``` se a IA enviou)
     let htmlLimpo = resultado.replace(/```html|```/g, '').trim();
 
-    // 3. Insere nos elementos (verifique se os IDs 'blocoCodigo' e 'resultadoCodigo' existem)
-    if (document.getElementById('blocoCodigo')) {
-        document.getElementById('blocoCodigo').textContent = htmlLimpo;
+    // VERIFICAÇÃO DOS ELEMENTOS
+    let elBloco = document.getElementById('blocoCodigo');
+    let elIframe = document.getElementById('resultadoCodigo');
+
+    if (elBloco) {
+        elBloco.textContent = htmlLimpo;
+        console.log("3. Sucesso no bloco de código");
+    } else {
+        console.error("ERRO: Elemento 'blocoCodigo' não encontrado no HTML!");
     }
-    
-    if (document.getElementById('resultadoCodigo')) {
-        document.getElementById('resultadoCodigo').srcdoc = htmlLimpo;
+
+    if (elIframe) {
+        elIframe.srcdoc = htmlLimpo;
+        console.log("4. Sucesso no iframe");
+    } else {
+        console.error("ERRO: Elemento 'resultadoCodigo' não encontrado no HTML!");
     }
-} else {
-    console.error("Estrutura de resposta inesperada", dados);
+
+} catch (erro) {
+    console.error("Erro fatal ao processar a resposta:", erro);
 }
 
 
