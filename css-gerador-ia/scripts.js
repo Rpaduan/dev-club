@@ -1,7 +1,10 @@
+//Descobri o botão
 let botao = document.querySelector(".botao-gerar")
-let endereco = "/api/chat"
+let endereco = "https://api.groq.com/openai/v1/chat/completions"
 
-async function gerarCodigo(){
+
+//Criei a função que será chamada quando clicar no botão
+async function gerarCodigo() {
     let textoUsuario = document.querySelector(".caixa-texto").value
     let blocoCodigo = document.querySelector(".bloco-codigo")
     let resultadoCodigo = document.querySelector(".resultado-codigo")
@@ -10,61 +13,34 @@ async function gerarCodigo(){
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": "Bearer " 
         },
         body: JSON.stringify({
+            model: "llama-3.3-70b-versatile",
             messages: [
-            {
-                role: "system",
-                content: "Você é um gerador de código HTML e CSS, responda APENAS com código puro. Nunca use crases, markdown ou explicações. Formato: primeiro <style> com o CSS, depois o HTML. Siga EXATAMENTE o que o usuário pedir. Se pedir algo quicando, use translateY no @keyframes. Se pedir algo girando, use rotate."
-            },
-            {
-                role: "user",
-                content: textoUsuario
-            }]
+                {
+                    role: "system",
+                    content: "Você é um gerador de código HTML e CSS. Responda apenas com o código puro, nunca use crases, markdown ou explicações e comentários. Formato: primeiro <style> com o CSS, depois o HTML. Siga exatamente o que o que o usuário pedir, se pedir algo quicando, use translateY no @keyframes. Se pedir algo girando, use rotate. Movimentações apenas se o usuário solicitar, caso contrário deixe o objeto estático. Mostre o resultado sempre no centro do iframe.'"
+                },
+                {
+                    role: "user",
+                    content: textoUsuario
+                }
+            ]
         })
+
     })
 
- try {
-    let dados = await resposta.json();
-    console.log("1. JSON recebido:", dados);
+    let dados = await resposta.json()
+    let resultado = dados.choices[0].message.content
 
-    // ACESSO CORRETO AO CONTEÚDO (Verifique os índices [0])
-    let resultado = dados.choices[0].message.content;
-    console.log("2. Texto da IA:", resultado);
-
-    // Limpando o código (remove as crases ``` se a IA enviou)
-    let htmlLimpo = resultado.replace(/```html|```/g, '').trim();
-
-    // VERIFICAÇÃO DOS ELEMENTOS
-    let elBloco = document.getElementById('blocoCodigo');
-    let elIframe = document.getElementById('resultadoCodigo');
-
-    if (elBloco) {
-        elBloco.textContent = htmlLimpo;
-        console.log("3. Sucesso no bloco de código");
-    } else {
-        console.error("ERRO: Elemento 'blocoCodigo' não encontrado no HTML!");
-    }
-
-    if (elIframe) {
-        elIframe.srcdoc = htmlLimpo;
-        console.log("4. Sucesso no iframe");
-    } else {
-        console.error("ERRO: Elemento 'resultadoCodigo' não encontrado no HTML!");
-    }
-
-} catch (erro) {
-    console.error("Erro fatal ao processar a resposta:", erro);
-}
-
-
+    blocoCodigo.textContent = resultado
+    resultadoCodigo.srcdoc = resultado
     
-    //let resultado = dados.choices[0].message.content
-
-    //blocoCodigo.textContent = resultado
-    //resultadoCodigo.srcdoc = resultado
+    console.log(dados)
 
 }
 
+//Ficar de olho no botão, quando clicar chamar o gerarCodigo
 botao.addEventListener("click", gerarCodigo)
 
