@@ -24,13 +24,40 @@ async function gerarCodigo(){
         })
     })
 
-   
+   // 1. Verifique se o fetch realmente deu certo
+if (!resposta.ok) {
+    console.error("Erro na requisição:", await resposta.text());
+    return;
+}
 
-    let dados = await resposta.json()
-    let resultado = dados.choices[0].message.content
+let dados = await resposta.json();
+console.log("Dados recebidos:", dados); // Veja se aparece no console do navegador
 
-    blocoCodigo.textContent = resultado
-    resultadoCodigo.srcdoc = resultado  
+// 2. Acesse o conteúdo com o índice [0]
+if (dados.choices && dados.choices.length > 0) {
+    let resultado = dados.choices[0].message.content;
+
+    // Limpa possíveis marcações de markdown (```html)
+    let htmlLimpo = resultado.replace(/```html|```/g, '').trim();
+
+    // 3. Insere nos elementos (verifique se os IDs 'blocoCodigo' e 'resultadoCodigo' existem)
+    if (document.getElementById('blocoCodigo')) {
+        document.getElementById('blocoCodigo').textContent = htmlLimpo;
+    }
+    
+    if (document.getElementById('resultadoCodigo')) {
+        document.getElementById('resultadoCodigo').srcdoc = htmlLimpo;
+    }
+} else {
+    console.error("Estrutura de resposta inesperada", dados);
+}
+
+
+    
+    //let resultado = dados.choices[0].message.content
+
+    //blocoCodigo.textContent = resultado
+    //resultadoCodigo.srcdoc = resultado
 
 }
 
