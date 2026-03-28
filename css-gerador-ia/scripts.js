@@ -3,7 +3,9 @@ let endereco = "/api/chat"
 
 async function gerarCodigo(){
     let textoUsuario = document.querySelector(".caixa-texto").value
-    
+    let blocoCodigo = document.querySelector(".bloco-codigo")
+    let resultadoCodigo = document.querySelector(".resultado-codigo")
+
     let resposta = await fetch(endereco, {
         method: "POST",
         headers: {
@@ -20,9 +22,14 @@ async function gerarCodigo(){
                 content: textoUsuario
             }]
         })
-    });
+    })
 
     console.log(resposta)
+
+    //let dados = await resposta.json()
+    //let resultado = dados.choices[0].message.content
+
+    //blocoCodigo.textContent = resultado
 
 }
 
