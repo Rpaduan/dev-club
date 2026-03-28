@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   // Pega a API KEY das variáveis de ambiente da Vercel (protegido)
   const apiKey = process.env.GROQ_API_KEY;
 
-  const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+  const response = await fetch("https://api.groq.com", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${apiKey}`,
