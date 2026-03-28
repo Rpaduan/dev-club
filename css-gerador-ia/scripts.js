@@ -20,7 +20,7 @@ async function gerarCodigo() {
             messages: [
                 {
                     role: "system",
-                    content: "Você é um gerador de código HTML e CSS. Responda apenas com o código puro, nunca use crases, markdown ou explicações e comentários. Formato: primeiro <style> com o CSS, depois o HTML. Siga exatamente o que o que o usuário pedir, se pedir algo quicando, use translateY no @keyframes. Se pedir algo girando, use rotate. Movimentações apenas se o usuário solicitar, caso contrário deixe o objeto estático. Mostre o resultado sempre no centro do iframe.'"
+                    content: "Você é um gerador de código HTML e CSS. Responda apenas com o código puro, nunca use crases, markdown ou explicações e comentários. Formato: primeiro <style> com o CSS, depois o HTML. Siga exatamente o que o que o usuário pedir, se pedir algo quicando, use translateY no @keyframes. Se pedir algo girando, use rotate. Movimentações apenas se o usuário solicitar, caso contrário deixe o objeto estático. Mostre o resultado sempre no centro do iframe."
                 },
                 {
                     role: "user",
