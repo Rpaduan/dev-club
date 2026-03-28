@@ -30,6 +30,7 @@ async function gerarCodigo(){
     let resultado = dados.choices[0].message.content
 
     blocoCodigo.textContent = resultado
+    resultadoCodigo.srcdoc = resultado  
 
 }
 
