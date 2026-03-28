@@ -24,12 +24,12 @@ async function gerarCodigo(){
         })
     })
 
-    console.log(resposta)
+   
 
-    //let dados = await resposta.json()
-    //let resultado = dados.choices[0].message.content
+    let dados = await resposta.json()
+    let resultado = dados.choices[0].message.content
 
-    //blocoCodigo.textContent = resultado
+    blocoCodigo.textContent = resultado
 
 }
 
