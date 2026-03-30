@@ -9,24 +9,14 @@ async function gerarCodigo() {
     let blocoCodigo = document.querySelector(".bloco-codigo")
     let resultadoCodigo = document.querySelector(".resultado-codigo")
 
-    let resposta = await fetch("/api/gerar", {
+    let resposta = await fetch("/api/chat", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             
         },
         body: JSON.stringify({
-            model: "llama-3.3-70b-versatile",
-            messages: [
-                {
-                    role: "system",
-                    content: "Você é um gerador de código HTML e CSS. Responda apenas com o código puro, nunca use crases, markdown ou explicações e comentários. Formato: primeiro <style> com o CSS, depois o HTML. Siga exatamente o que o que o usuário pedir, se pedir algo quicando, use translateY no @keyframes. Se pedir algo girando, use rotate. Movimentações apenas se o usuário solicitar, caso contrário deixe o objeto estático. Mostre o resultado sempre no centro do iframe."
-                },
-                {
-                    role: "user",
-                    content: textoUsuario
-                }
-            ]
+            textoUsuario: textoUsuario
         })
 
     })
