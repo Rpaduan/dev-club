@@ -8,6 +8,7 @@ async function gerarCodigo() {
     let textoUsuario = document.querySelector(".caixa-texto").value
     let blocoCodigo = document.querySelector(".bloco-codigo")
     let resultadoCodigo = document.querySelector(".resultado-codigo")
+    let containerResultado = document.querySelector(".resultado")
 
     let resposta = await fetch("/api/chat", {
         method: "POST",
@@ -26,6 +27,7 @@ async function gerarCodigo() {
 
     blocoCodigo.textContent = resultado
     resultadoCodigo.srcdoc = resultado
+    containerResultado.classList.add("visivel")
     
     console.log(dados)
 
