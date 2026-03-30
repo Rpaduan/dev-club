@@ -10,17 +10,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 <title>DevClub - Gerador de IA</title>
 </head>
+
 <body>
+
     <h1>CSS Gerador <span>com IA ⚡</span></h1>
     <p>Descreva o que você imagina e veja a mágica acontecer</p>
     <textarea class="caixa-texto" rows="3" placeholder="Ex: Bola azul pingando"></textarea>
     <button class="botao-gerar" >Gerar Código ⚡</button>
 
-    <h2>Código</h2>
-    <p class="bloco-codigo"></p>
+    <div class="resultado">
 
-    <h2>Preview</h2>
-    <iframe class="resultado-codigo"></iframe>
+        <div>
+            <h2>Código</h2>
+            <p class="bloco-codigo"></p>
+        </div>
+
+        <div>
+            <h2>Preview</h2>
+            <iframe class="resultado-codigo"></iframe>
+        </div>
+
+    </div>
+
 </body>
 
 <script src="scripts.js">
