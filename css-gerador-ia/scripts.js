@@ -9,7 +9,7 @@ async function gerarCodigo() {
     let blocoCodigo = document.querySelector(".bloco-codigo")
     let resultadoCodigo = document.querySelector(".resultado-codigo")
 
-    let resposta = await fetch(endereco, {
+    let resposta = await fetch("/api/gerar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
